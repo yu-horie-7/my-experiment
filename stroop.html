@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroop Task - jsPsych</title>
+    <!-- jsPsych 7.3.4 コアライブラリとスタイルシート -->
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <!-- 各種プラグイン -->
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
+    
+    <style>
+        body {
+            background-color: #FFFFFF;
+            color: #000000;
+            font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* 教示テキストのサイズ設定 */
+        .instruction-text {
+            font-size: 24px;
+            line-height: 1.6;
+            text-align: left;
+            display: inline-block;
+        }
+        /* 刺激テキスト（ターゲット）のサイズ設定 */
+        .stimulus-text {
+            font-size: 60px;
+            font-weight: bold;
+        }
+        /* 注視点のサイズ設定 */
+        .fixation-text {
+            font-size: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div id="jspsych-target"></div>
+
+    <script>
+        const jsPsych = initJsPsych({
+            on_finish: function() {
+                // 実験終了時にCSV形式でデータを表示
+                jsPsych.data.displayData('csv');
+            }
+        });
+
+        // タイムラインの配列
+        let timeline = [];
+
+        /* 
+           プレビュー環境の権限ポリシーにより全画面表示がブロックされるため、
+           fullscreen_trial を削除し、直接教示画面から開始するように変更します。
+        */
+
+        const instructions = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+                <div class="instruction-text">
+                    <p>文字の「色」をキーボードで答えてください。</p>
+                    <p style="color: red;">赤色なら 'r'</p>
+                    <p style="color: blue;">青色なら 'b'</p>
+                    <p style="color: green;">緑色なら 'g'</p>
+                    <p>スペースキーで開始します。</p>
+                </div>
+            `,
+            choices: [' ']
+        };
+        timeline.push(instructions);
+
+        // 文字と色の組み合わせを定義（3x3 = 9種類）
+        const words = [
+            { text: "赤", color: "red", key: "r" },
+            { text: "青", color: "blue", key: "b" },
+            { text: "緑", color: "green", key: "g" }
+        ];
+        const colors = [
+            { name: "red", code: "red", key: "r" },
+            { name: "blue", code: "blue", key: "b" },
+            { name: "green", code: "green", key: "g" }
+        ];
+
+        let stimuli = [];
+        for (let w of words) {
+            for (let c of colors) {
+                stimuli.push({
+                    stimulus_word: w.text,
+                    stimulus_color: c.code,
+                    correct_response: c.key,
+                    condition: (w.text === (c.name === "red" ? "赤" : c.name === "blue" ? "青" : "緑")) ? "congruent" : "incongruent"
+                });
+            }
+        }
+
+        // デモ用に10試行分をランダムサンプリング（復元抽出）
+        const test_stimuli = jsPsych.randomization.sampleWithReplacement(stimuli, 10);
+
+        // 注視点
+        const fixation = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<div class="fixation-text">+</div>',
+            choices: "NO_KEYS",
+            trial_duration: 500,
+            data: { task: 'fixation' }
+        };
+
+        // メイン刺激（ストループ課題）
+        const test_trial = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: function() {
+                return `<div class="stimulus-text" style="color: ${jsPsych.timelineVariable('stimulus_color')};">
+                            ${jsPsych.timelineVariable('stimulus_word')}
+                        </div>`;
+            },
+            choices: ['r', 'b', 'g'],
+            data: {
+                task: 'response',
+                correct_response: jsPsych.timelineVariable('correct_response'),
+                condition: jsPsych.timelineVariable('condition')
+            },
+            on_finish: function(data) {
+                // 正誤判定の記録
+                data.correct = (jsPsych.pluginAPI.compareKeys(data.response, data.correct_response));
+            }
+        };
+
+        // 試行間隔 (ITI)
+        const iti = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '',
+            choices: "NO_KEYS",
+            trial_duration: 1000
+        };
+
+        const test_procedure = {
+            timeline: [fixation, test_trial, iti],
+            timeline_variables: test_stimuli
+        };
+
+        timeline.push(test_procedure);
+
+        jsPsych.run(timeline);
+
+    </script>
+</body>
+</html>
