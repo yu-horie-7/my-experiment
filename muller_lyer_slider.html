@@ -8,6 +8,7 @@
   <!-- jsPsych CDN Assets (v7.3.1) -->
   <script src="https://unpkg.com/jspsych@7.3.1"></script>
   <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.2"></script>
   <script src="https://unpkg.com/@jspsych/plugin-canvas-slider-response@1.1.2"></script>
   <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.2"></script>
   <link rel="stylesheet" href="https://unpkg.com/jspsych@7.3.1/css/jspsych.css">
@@ -308,16 +309,15 @@
     };
     timeline.push(participant_id_trial);
 
-    // 2. 教示画面
+    // 2. 教示画面 (スマートフォン対応のために html-button-response に変更)
     const instructions = {
-      type: jsPsychHtmlKeyboardResponse,
+      type: jsPsychHtmlButtonResponse,
       stimulus: `
         <h1>ミュラー・リヤー錯視実験 (調整法)</h1>
         <p>画面には上下に2本の横線が表示されます。上側は固定、下側はスライダーで長さを自由に変えられます。</p>
         <p>スライダーを左右に動かし、<strong>下側の線の「中央の横棒」が、上側の線の「中央の横棒」と「全く同じ長さ」に見えるように</strong>調整してください。</p>
-        <p class="center-text" style="margin-top: 1.5rem; font-weight: bold; color: #3b82f6;">【スペースキー】を押すと実験が始まります。</p>
       `,
-      choices: [' '],
+      choices: ['実験を開始する'],
       post_trial_gap: 1000
     };
     timeline.push(instructions);
@@ -404,5 +404,3 @@
 
     jsPsych.run(timeline);
   </script>
-</body>
-</html>
