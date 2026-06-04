@@ -334,7 +334,16 @@
 
     // 試行の生成
     trial_conditions.forEach((condition, index) => {
-      const initial_val = Math.floor(Math.random() * (300 - 100 + 1)) + 100;
+      // --- スライダーの「正解中央」回避ロジック ---
+      // スライダーの全可動域幅を「240px」に固定しながら、
+      // 試行ごとにスライダー自体の可動範囲を「-30px 〜 +30px」の間でランダムにシフトさせます。
+      // これにより、物理中央（50%位置）にノブを合わせても正解(200px)にならないようにします。
+      const shift = Math.floor(Math.random() * 61) - 30; // -30 〜 +30px
+      const trial_min = 80 + shift;  // スライダー最小値：50px 〜 110px
+      const trial_max = 320 + shift; // スライダー最大値：290px 〜 350px
+
+      // 初期値は「新しい最小値＋30px」から「新しい最大値ー30px」の間で完全にランダム
+      const initial_val = Math.floor(Math.random() * ((trial_max - 30) - (trial_min + 30) + 1)) + (trial_min + 30);
 
       // 現在のスライダーの値を追跡するためのローカル状態
       let currentLength = initial_val;
@@ -358,8 +367,8 @@
           drawMullerLyer(ctx, canvas.width / 2, 220, currentLength, condition.feather_length, condition.angle, 'outward');
         },
         
-        min: 50,
-        max: 350,
+        min: trial_min,
+        max: trial_max,
         slider_start: initial_val,
         step: 1,
         labels: [],
@@ -404,3 +413,5 @@
 
     jsPsych.run(timeline);
   </script>
+</body>
+</html>
