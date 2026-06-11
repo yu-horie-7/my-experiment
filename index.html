@@ -1,94 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <title>jsPsych - Red Circle Stimulus</title>
-  <!-- Load jsPsych v7 from CDN -->
-  <script src="https://unpkg.com/jspsych@7.3.4"></script>
-  <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
-  <!-- Load html-keyboard-response plugin -->
-  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
-  <style>
-    /* 1. Set background color to gray (#808080) */
-    body {
-      background-color: #808080;
-      color: white;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* 2. CSS to draw a red circle with 100px diameter */
-    .red-circle {
-      width: 100px;
-      height: 100px;
-      background-color: #ff0000; /* Red */
-      border-radius: 50%; /* Makes it a circle */
-      margin: 0 auto;
-    }
-
-    .instruction {
-      margin-top: 20px;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尚絅学院大学 堀江優月の心理学実験室</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Noto Sans JP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#f7f6f2',     /* 温かみのあるベージュ（背景用） */
+                            mint: '#689f84',      /* 落ち着いたミントグリーン（メイン・アクセント） */
+                            mintHover: '#4d7c65', /* ホバー用ダークミント */
+                            dark: '#333e38',      /* 文字色・コントラスト用 */
+                            cardBg: '#ffffff',    /* カード背景 */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* スムーズなアニメーション用の追加スタイル */
+        .card-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
 </head>
-<body></body>
-<script>
-  /**
-   * Initialize jsPsych
-   */
-  const jsPsych = initJsPsych({
-    on_finish: function() {
-      // Display data for debugging if needed
-      // jsPsych.data.displayData();
-    }
-  });
+<body class="bg-brand-light text-brand-dark font-sans min-h-screen flex flex-col antialiased">
 
-  /**
-   * Trial 1: Display red circle
-   * Requirement: Continue until Space key is pressed
-   */
-  const circle_trial = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
-      <div class="red-circle"></div>
-      <div class="instruction">
-        <p>スペースキーを押して終了してください。</p>
-      </div>
-    `,
-    choices: [' '], // Restrict response to Space key only
-    data: {
-      task: 'display_red_circle'
-    }
-  };
+    <!-- ヘッダー -->
+    <header class="bg-white border-b border-gray-100 shadow-sm py-8 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block bg-brand-mint/10 text-brand-mint text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full mb-3">
+                SHOKEI GAKUIN UNIVERSITY
+            </span>
+            <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-brand-dark mb-2">
+                尚絅学院大学 堀江優月の心理学実験室
+            </h1>
+            <p class="text-sm text-gray-500 font-medium">
+                担当者：堀江 優月
+            </p>
+        </div>
+    </header>
 
-  /**
-   * Trial 2: End message
-   */
-  const end_trial = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
-      <div class="instruction">
-        <p>終了しました。</p>
-      </div>
-    `,
-    choices: "NO_KEYS", // No keys accepted
-    trial_duration: 2000 // Display for 2 seconds
-  };
+    <!-- メインコンテンツ -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-12 md:py-16">
+        
+        <!-- 挨拶・イントロダクション -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/50 mb-12 text-center md:text-left">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                <!-- 装飾アイコン風パーツ -->
+                <div class="w-16 h-16 bg-brand-mint/10 text-brand-mint rounded-2xl flex items-center justify-center shrink-0 flex-col">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-mint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-brand-dark mb-3">ご参加の皆さまへ</h2>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base">
+                        ご訪問ありがとうございます。以下の実験へのご協力をお願いいたします。各実験は数分で終わります。スマートフォンからも参加可能です。
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
+                        <span class="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-100 px-2.5 py-1 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            スマホ対応
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-100 px-2.5 py-1 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            所要時間: 数分
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  /**
-   * Create the timeline (Requirement 4: Followed by end message)
-   */
-  const timeline = [circle_trial, end_trial];
+        <!-- 実験リスト -->
+        <div class="space-y-6">
+            <h3 class="text-lg font-bold text-brand-dark/80 px-1 border-l-4 border-brand-mint pl-3">
+                公開中の実験・コンテンツリスト
+            </h3>
 
-  /**
-   * Run the experiment
-   */
-  jsPsych.run(timeline);
-</script>
+            <!-- 実験カード 0 -->
+            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-xl">
+                    <span class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded">
+                        実験 0
+                    </span>
+                    <h4 class="text-lg font-bold text-brand-dark">はじめてのWebページ</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        第2回で作成した記念すべき「Hello World」のページです。
+                    </p>
+                </div>
+                <div class="shrink-0">
+                    <a href="hello_world.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide">
+                        <span>Hello Worldを見る</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 実験カード 1 -->
+            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-xl">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="inline-block bg-brand-mint/10 text-brand-mint text-xs font-semibold px-2.5 py-1 rounded">
+                            実験 1
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 px-2 py-0.5 rounded">
+                            所要時間：約3分
+                        </span>
+                    </div>
+                    <h4 class="text-lg font-bold text-brand-dark">ストループ課題</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        「文字の意味」と「文字の色」の干渉を調べる、簡単なキーボード入力のテストです。（所要時間：約3分）
+                    </p>
+                </div>
+                <div class="shrink-0">
+                    <a href="stroop.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-brand-mint hover:bg-brand-mintHover text-white font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide shadow-sm hover:shadow">
+                        <span>実験1に参加する</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 実験カード 2 -->
+            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-xl">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="inline-block bg-brand-mint/10 text-brand-mint text-xs font-semibold px-2.5 py-1 rounded">
+                            実験 2
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 px-2 py-0.5 rounded">
+                            所要時間：約2分
+                        </span>
+                    </div>
+                    <h4 class="text-lg font-bold text-brand-dark">ミュラー・リヤー錯視</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        図形の長さが違って見える錯覚を測る、スライダーを使った視覚のテストです。（所要時間：約2分）
+                    </p>
+                </div>
+                <div class="shrink-0">
+                    <a href="muller_lyer_final.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-brand-mint hover:bg-brand-mintHover text-white font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide shadow-sm hover:shadow">
+                        <span>実験2に参加する</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 注意事項・プライバシーに関する案内 -->
+        <section class="mt-16 border-t border-gray-200/60 pt-8 text-center md:text-left">
+            <div class="bg-gray-100/55 rounded-xl p-5 text-xs text-gray-500 leading-relaxed space-y-2">
+                <p class="font-bold text-gray-600">【実験参加にあたっての注意事項】</p>
+                <ul class="list-disc list-inside space-y-1 ml-1 text-left">
+                    <li>本実験で取得されるデータは学術研究・講義の目的にのみ使用され、個人が特定されることはありません。</li>
+                    <li>体調が優れない場合は、いつでも途中でブラウザを閉じて参加を中断してください。</li>
+                    <li>十分な明るさの部屋で、画面から適切な距離（約50cm）を保って課題を行ってください。</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-white border-t border-gray-100 py-6 px-4 mt-12 text-center text-xs text-gray-400">
+        <div class="max-w-4xl mx-auto">
+            <p>&copy; 2026 Shokei Gakuin University. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
 </html>
