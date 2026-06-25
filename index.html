@@ -95,29 +95,71 @@
                 公開中の実験・コンテンツリスト
             </h3>
 
-            <!-- 実験カード 0 -->
-            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div class="space-y-2 max-w-xl">
-                    <span class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded">
-                        実験 0
-                    </span>
-                    <h4 class="text-lg font-bold text-brand-dark">はじめてのWebページ</h4>
-                    <p class="text-sm text-gray-500 leading-relaxed">
-                        第2回で作成した記念すべき「Hello World」のページです。
+            <!-- 【本番用】実験カード 3 (n-back課題) -->
+            <div class="card-transition bg-white rounded-2xl p-6 md:p-8 shadow-md border-2 border-brand-mint/30 hover:border-brand-mint/60 flex flex-col md:flex-row md:items-start justify-between gap-6 relative overflow-hidden">
+                <!-- 装飾用の背景アクセント -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-mint/5 rounded-bl-full -z-10"></div>
+                
+                <div class="space-y-3 max-w-xl">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="inline-block bg-brand-mint text-white text-xs font-bold tracking-wide px-3 py-1.5 rounded-md shadow-sm">
+                            本番用実験
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-xs text-amber-600 bg-amber-50 border border-amber-100 px-2 py-1 rounded-md">
+                            所要時間：約5分
+                        </span>
+                    </div>
+                    <h4 class="text-xl font-bold text-brand-dark">n-back課題</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        ワーキングメモリ（作業記憶）の働きを調べるための認知課題です。画面に次々と表示される刺激が、指定された回数（n回）前の刺激と同じかどうかを判断していただきます。
                     </p>
+                    
+                    <!-- 事前登録（プレレジストレーション）のアピールエリア -->
+                    <div class="mt-4 bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-start gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-mint shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <div class="text-xs text-gray-500 space-y-1">
+                            <p class="font-bold text-gray-700">研究の透明性について</p>
+                            <p class="leading-relaxed">本研究は、データの収集を行う前に仮説や分析方法を公開する「事前登録（プレレジストレーション）」を実施しており、透明性の高いクリーンな手続きで行われています。</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="shrink-0">
-                    <a href="hello_world.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide">
-                        <span>Hello Worldを見る</span>
+
+                <!-- アクションエリア（参加ボタン ＋ プレレジリンク） -->
+                <div class="shrink-0 flex flex-col items-stretch md:items-end gap-3 w-full md:w-64 mt-2 md:mt-0 z-10">
+                    
+                    <!-- 実験参加ボタン（一番目立たせる） -->
+                    <a href="n_back.html" class="card-transition w-full flex items-center justify-center bg-brand-mint hover:bg-brand-mintHover text-white font-bold px-6 py-4 rounded-xl text-sm tracking-wide shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
+                        <span>実験に参加する</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
+                    
+                    <!-- プレレジ関連リンク（役割に応じて控えめにデザイン） -->
+                    <div class="flex flex-col gap-2 w-full mt-1">
+                        <!-- プレレジ本文（白抜きのアウトラインボタン） -->
+                        <a href="https://github.com/yu-horie-7/my-experiment/blob/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="card-transition w-full flex items-center justify-center bg-white border-2 border-gray-200 hover:border-brand-mint hover:text-brand-mint text-gray-600 font-medium px-4 py-2.5 rounded-xl text-xs transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            プレレジを確認する
+                        </a>
+                        
+                        <!-- 変更履歴（テキストリンク） -->
+                        <a href="https://github.com/yu-horie-7/my-experiment/commits/main/preregistration.md" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center text-[11px] text-gray-400 hover:text-gray-600 hover:underline underline-offset-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            変更履歴（証拠）を確認する
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- 実験カード 1 -->
-            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6 opacity-90">
                 <div class="space-y-2 max-w-xl">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="inline-block bg-brand-mint/10 text-brand-mint text-xs font-semibold px-2.5 py-1 rounded">
@@ -133,17 +175,17 @@
                     </p>
                 </div>
                 <div class="shrink-0">
-                    <a href="stroop.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-brand-mint hover:bg-brand-mintHover text-white font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide shadow-sm hover:shadow">
+                    <a href="stroop.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide">
                         <span>実験1に参加する</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
             </div>
 
             <!-- 実験カード 2 -->
-            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6 opacity-90">
                 <div class="space-y-2 max-w-xl">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="inline-block bg-brand-mint/10 text-brand-mint text-xs font-semibold px-2.5 py-1 rounded">
@@ -159,14 +201,36 @@
                     </p>
                 </div>
                 <div class="shrink-0">
-                    <a href="muller_lyer_final.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-brand-mint hover:bg-brand-mintHover text-white font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide shadow-sm hover:shadow">
+                    <a href="muller_lyer_final.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide">
                         <span>実験2に参加する</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
             </div>
+
+            <!-- 実験カード 0 -->
+            <div class="card-transition bg-brand-cardBg rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100/60 hover:shadow-md hover:border-brand-mint/30 flex flex-col md:flex-row md:items-center justify-between gap-6 opacity-90">
+                <div class="space-y-2 max-w-xl">
+                    <span class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded">
+                        実験 0
+                    </span>
+                    <h4 class="text-lg font-bold text-brand-dark">はじめてのWebページ</h4>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        第2回で作成した記念すべき「Hello World」のページです。
+                    </p>
+                </div>
+                <div class="shrink-0">
+                    <a href="hello_world.html" class="card-transition inline-flex items-center justify-center w-full md:w-auto bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-6 py-3.5 rounded-xl text-sm tracking-wide">
+                        <span>Hello Worldを見る</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <!-- 注意事項・プライバシーに関する案内 -->
